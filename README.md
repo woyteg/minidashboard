@@ -1,4 +1,4 @@
-# Raspberry Pi Web Files - Automated Installer
+# Mobile Dashboard for FM Poland - Automated Installer
 
 This repository contains PHP files for your Raspberry Pi web application with an automated installation script.
 
