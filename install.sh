@@ -36,7 +36,7 @@ echo "Backing up existing files (if any)..."
 [ -f /var/www/html/include/change_tg.php ] && cp /var/www/html/include/change_tg.php "$BACKUP_DIR/"
 [ -f /var/www/html/include/check_nodes.php ] && cp /var/www/html/include/check_nodes.php "$BACKUP_DIR/"
 [ -f /var/www/html/include/lh.php ] && cp /var/www/html/include/lh.php "$BACKUP_DIR/"
-[ -f /var/www/html/include/reflecor_status.php ] && cp /var/www/html/include/reflecor_status.php "$BACKUP_DIR/"
+[ -f /var/www/html/include/reflector_status.php ] && cp /var/www/html/include/reflector_status.php "$BACKUP_DIR/"
 
 echo -e "${GREEN}Backup complete!${NC}"
 echo ""
@@ -100,7 +100,7 @@ cp files/html/include/top_menu.php /var/www/html/include/
 cp files/html/include/change_tg.php /var/www/html/include/
 cp files/html/include/check_nodes.php /var/www/html/include/
 cp files/html/include/lh.php /var/www/html/include/
-cp files/html/include/reflecor_status.php /var/www/html/include/
+cp files/html/include/reflector_status.php /var/www/html/include/
 
 # Set proper ownership (www-data is the default web server user)
 echo "Setting proper file ownership..."
@@ -111,7 +111,7 @@ chown -R www-data:www-data /var/www/html/include/top_menu.php
 chown -R www-data:www-data /var/www/html/include/change_tg.php
 chown -R www-data:www-data /var/www/html/include/check_nodes.php
 chown -R www-data:www-data /var/www/html/include/lh.php
-chown -R www-data:www-data /var/www/html/include/reflecor_status.php
+chown -R www-data:www-data /var/www/html/include/reflector_status.php
 
 # Set proper permissions (644 for PHP files is standard)
 echo "Setting proper file permissions..."
@@ -122,7 +122,7 @@ chmod 644 /var/www/html/include/top_menu.php
 chmod 644 /var/www/html/include/change_tg.php
 chmod 644 /var/www/html/include/check_nodes.php
 chmod 644 /var/www/html/include/lh.php
-chmod 644 /var/www/html/include/reflecor_status.php
+chmod 644 /var/www/html/include/reflector_status.php
 
 # Cleanup
 echo "Cleaning up temporary files..."
@@ -145,5 +145,5 @@ echo "  - /var/www/html/include/top_menu.php"
 echo "  - /var/www/html/include/change_tg.php"
 echo "  - /var/www/html/include/check_nodes.php"
 echo "  - /var/www/html/include/lh.php"
-echo "  - /var/www/html/include/reflecor_status.php"
+echo "  - /var/www/html/include/reflector_status.php"
 echo ""
