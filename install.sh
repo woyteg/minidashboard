@@ -18,7 +18,7 @@ echo ""
 # Check if running as root
 if [ "$EUID" -ne 0 ]; then 
     echo -e "${RED}ERROR: This script must be run as root${NC}"
-    echo "Please run: curl -sSL https://raw.githubusercontent.com/woyteg/minidashboard/main/install.sh | sudo bash"
+    echo "Please run: curl -sSL https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/install.sh | sudo bash"
     exit 1
 fi
 
@@ -41,12 +41,37 @@ echo "Backing up existing files (if any)..."
 echo -e "${GREEN}Backup complete!${NC}"
 echo ""
 
+# Check if unzip is installed, install if needed
+if ! command -v unzip &> /dev/null; then
+    echo "Installing unzip package..."
+    apt-get update -qq
+    apt-get install -y unzip
+fi
+
 # Download files from GitHub
 echo "Downloading files from GitHub..."
 cd /tmp
 rm -rf webfiles_temp
-git clone https://github.com/woyteg/minidashboard.git webfiles_temp
+mkdir -p webfiles_temp
 cd webfiles_temp
+
+# Download the repository as a zip file
+echo "Downloading repository archive..."
+wget -q https://github.com/YOUR_USERNAME/YOUR_REPO/archive/refs/heads/main.zip -O repo.zip
+
+# Check if download was successful
+if [ ! -f "repo.zip" ]; then
+    echo -e "${RED}ERROR: Failed to download repository${NC}"
+    echo "Please check that your repository is PUBLIC and the URL is correct"
+    exit 1
+fi
+
+# Extract the zip file
+echo "Extracting files..."
+unzip -q repo.zip
+
+# Move into the extracted directory (GitHub adds -main to the folder name)
+cd YOUR_REPO-main
 
 # Check if files exist in repo
 if [ ! -d "files" ]; then
