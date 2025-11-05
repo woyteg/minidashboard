@@ -18,7 +18,7 @@ echo ""
 # Check if running as root
 if [ "$EUID" -ne 0 ]; then 
     echo -e "${RED}ERROR: This script must be run as root${NC}"
-    echo "Please run: curl -sSL https://raw.githubusercontent.com/woyteg/minidashboard/main/install.sh | sudo bash"
+    echo "Please run: curl -sSL https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/install.sh | sudo bash"
     exit 1
 fi
 
@@ -29,7 +29,7 @@ mkdir -p "$BACKUP_DIR"
 
 # Backup existing files if they exist
 echo "Backing up existing files (if any)..."
-[ -f /var/www/html/Mini.php ] && cp /var/www/html/Mini.php "$BACKUP_DIR/"
+[ -f /var/www/html/mini.php ] && cp /var/www/html/mini.php "$BACKUP_DIR/"
 [ -f /var/www/html/settings.php ] && cp /var/www/html/settings.php "$BACKUP_DIR/"
 [ -f /var/www/html/talkgroup_config.php ] && cp /var/www/html/talkgroup_config.php "$BACKUP_DIR/"
 [ -f /var/www/html/include/top_menu.php ] && cp /var/www/html/include/top_menu.php "$BACKUP_DIR/"
@@ -45,7 +45,7 @@ echo ""
 echo "Downloading files from GitHub..."
 cd /tmp
 rm -rf webfiles_temp
-git clone https://github.com/woyteg/minidashboard.git webfiles_temp
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git webfiles_temp
 cd webfiles_temp
 
 # Check if files exist in repo
@@ -65,7 +65,7 @@ mkdir -p /var/www/html/include
 
 # Copy files to /var/www/html/
 echo "Copying files to /var/www/html/..."
-cp files/html/Mini.php /var/www/html/
+cp files/html/mini.php /var/www/html/
 cp files/html/settings.php /var/www/html/
 cp files/html/talkgroup_config.php /var/www/html/
 
@@ -79,7 +79,7 @@ cp files/html/include/reflecor_status.php /var/www/html/include/
 
 # Set proper ownership (www-data is the default web server user)
 echo "Setting proper file ownership..."
-chown -R www-data:www-data /var/www/html/Mini.php
+chown -R www-data:www-data /var/www/html/mini.php
 chown -R www-data:www-data /var/www/html/settings.php
 chown -R www-data:www-data /var/www/html/talkgroup_config.php
 chown -R www-data:www-data /var/www/html/include/top_menu.php
@@ -90,7 +90,7 @@ chown -R www-data:www-data /var/www/html/include/reflecor_status.php
 
 # Set proper permissions (644 for PHP files is standard)
 echo "Setting proper file permissions..."
-chmod 644 /var/www/html/Mini.php
+chmod 644 /var/www/html/mini.php
 chmod 644 /var/www/html/settings.php
 chmod 644 /var/www/html/talkgroup_config.php
 chmod 644 /var/www/html/include/top_menu.php
@@ -113,7 +113,7 @@ echo "Files installed successfully!"
 echo -e "Backup location: ${YELLOW}$BACKUP_DIR${NC}"
 echo ""
 echo "Installed files:"
-echo "  - /var/www/html/Mini.php"
+echo "  - /var/www/html/mini.php"
 echo "  - /var/www/html/settings.php"
 echo "  - /var/www/html/talkgroup_config.php"
 echo "  - /var/www/html/include/top_menu.php"
