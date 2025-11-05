@@ -18,7 +18,7 @@ echo ""
 # Check if running as root
 if [ "$EUID" -ne 0 ]; then 
     echo -e "${RED}ERROR: This script must be run as root${NC}"
-    echo "Please run: curl -sSL https://raw.githubusercontent.com/woyteg/minidashboard/main/install.sh | sudo bash"
+    echo "Please run: curl -sSL https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/install.sh | sudo bash"
     exit 1
 fi
 
