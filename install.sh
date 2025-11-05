@@ -71,7 +71,7 @@ echo "Extracting files..."
 unzip -q repo.zip
 
 # Move into the extracted directory (GitHub adds -main to the folder name)
-cd YOUR_REPO-main
+cd minidashboard-main
 
 # Check if files exist in repo
 if [ ! -d "files" ]; then
