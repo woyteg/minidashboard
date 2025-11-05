@@ -44,7 +44,7 @@ If you prefer to install manually:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+   git clone https://github.com/woyteg/minidashboard.git
    cd YOUR_REPO
    ```
 
