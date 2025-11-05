@@ -45,7 +45,7 @@ If you prefer to install manually:
 1. Clone this repository:
    ```bash
    git clone https://github.com/woyteg/minidashboard.git
-   cd YOUR_REPO
+   cd minidashboard
    ```
 
 2. Run the installation script:
