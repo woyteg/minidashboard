@@ -10,10 +10,12 @@ $net4= cidr_match($ip, "10.0.0.0/8");
 $net5= cidr_match($ip, REMOTEIP."/32");
 
 echo "<a href=\"/\" style=\"color:".$color_menu[0]."; font-family: 'Oswald', sans-serif; font-size: 14pt;\">Dashboard</a>";
+ 
+echo " | <a title=\"Mini mobile dashboard\" href=\"/mini.php\" style=\"color:".$color_menu[0]."; font-family: 'Oswald', sans-serif;font-size: 14pt;\">Mobile Dashboard</a>"; 
 
 
 if (!empty($refApi) && ($net1 == true || $net2 == true || $net3 == true || $net4 == true || $net5 == true)) {
-    echo " | <a title=\"Mini mobile dashboard\" href=\"/mini.php\" style=\"color:".$color_menu[1]."; font-family: 'Oswald', sans-serif;font-size: 14pt;\">Mobile Dashboard</a>"; 
+    echo " | <a title=\"Nodes\" href=\"/node.php\" style=\"color:".$color_menu[1]."; font-family: 'Oswald', sans-serif;font-size: 14pt;\">Nodes</a>"; 
 }
 if ($reflector_active) {
     echo " | <a title=\"Wykaz nazw Talk Group\" href=\"/tg.php\" style=\"color:".$color_menu[2]."; font-family: 'Oswald', sans-serif; font-size: 14pt;\">Talk Group</a>"; 
