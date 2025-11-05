@@ -7,13 +7,13 @@ This repository contains PHP files for your Raspberry Pi web application with an
 Run this single command on your Raspberry Pi to install/update all files:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/install.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/woyteg/minidashboard/main/install.sh | sudo bash
 ```
 
 **Alternative method** (if curl is not available):
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/install.sh | sudo bash
+wget -qO- https://raw.githubusercontent.com/woyteg/minidashboard/main/install.sh | sudo bash
 ```
 
 ## What This Script Does
