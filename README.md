@@ -55,10 +55,7 @@ If you prefer to install manually:
 
 ## Requirements
 
-- Raspberry Pi with Raspbian/Raspberry Pi OS
-- Apache/Nginx web server installed
-- SSH access with sudo privileges
-- Git installed (automatically installed by script if missing)
+Raspberry Pi or Orange Pi with SP2ONG Dashboard over FM Poland (SVXLink)
 
 ## Troubleshooting
 
