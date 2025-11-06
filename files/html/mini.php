@@ -667,6 +667,7 @@
         let talkgroups = [];
         let activeTalkgroup = 1;
         let lastHeardStations = [];
+        let lastTransmissionTimes = {}; // Track transmission end times by callsign
 
         // Load talkgroups from server
         function loadTalkgroups() {
@@ -750,22 +751,41 @@
                 return;
             }
 
-            container.innerHTML = lastHeardStations.map((station, index) => `
-                <div class="last-heard-item ${station.active ? 'active' : ''}">
-                    <div style="text-align: center;">
-                        <div class="callsign ${station.active ? 'active' : ''}">
-                            ${station.callsign}
+            const now = Date.now();
+
+            container.innerHTML = lastHeardStations.map((station, index) => {
+                let timeDisplay = station.time;
+                
+                // Check if we should show "Last heard" prefix
+                if (!station.active && lastTransmissionTimes[station.callsign]) {
+                    const secondsSinceTransmission = (now - lastTransmissionTimes[station.callsign]) / 1000;
+                    if (secondsSinceTransmission >= 30) {
+                        timeDisplay = `Last heard ${station.time}`;
+                    }
+                }
+                
+                // Update transmission time tracking
+                if (station.active) {
+                    lastTransmissionTimes[station.callsign] = now;
+                }
+                
+                return `
+                    <div class="last-heard-item ${station.active ? 'active' : ''}">
+                        <div style="text-align: center;">
+                            <div class="callsign ${station.active ? 'active' : ''}">
+                                ${station.callsign}
+                            </div>
+                            <div class="timestamp" style="margin-top: 10px;">${timeDisplay}</div>
                         </div>
-                        <div class="timestamp" style="margin-top: 10px;">${station.time}</div>
-                    </div>
-                    <div>
-                        <div style="margin-top: 15px; text-align: center;">
-                            <span class="talkgroup">${station.talkgroup}</span>
+                        <div>
+                            <div style="margin-top: 15px; text-align: center;">
+                                <span class="talkgroup">${station.talkgroup}</span>
+                            </div>
+                            ${station.tgName ? `<div style="margin-top: 8px; text-align: center; opacity:0.8; font-size: 1.1em;">${station.tgName}</div>` : ''}
                         </div>
-                        ${station.tgName ? `<div style="margin-top: 8px; text-align: center; opacity:0.8; font-size: 1.1em;">${station.tgName}</div>` : ''}
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function updateConnectionStatusStyle(status) {
