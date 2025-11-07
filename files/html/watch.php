@@ -361,7 +361,7 @@
 
         <!-- Credit -->
         <div class="opensource-credit">
-            Open source project powered by SVXLink
+            Copyright © 2025 W9GIL - Open Source Project
         </div>
     </div>
 
