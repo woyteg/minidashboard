@@ -361,12 +361,13 @@
 
         <!-- Credit -->
         <div class="opensource-credit">
-            Copyright © 2025 W9GIL - Open Source Project
+            Open source project powered by SVXLink
         </div>
     </div>
 
     <script>
         let lastHeardStations = [];
+        let lastTransmissionTimes = {};
 
         // Theme Toggle
         function toggleTheme() {
@@ -403,12 +404,28 @@
             
             if (lastHeardStations.length > 0) {
                 const station = lastHeardStations[0];
+                const now = Date.now();
+                
+                let timeDisplay = station.time;
+                
+                // Check if we should show "Last heard" prefix
+                if (!station.active && lastTransmissionTimes[station.callsign]) {
+                    const secondsSinceTransmission = (now - lastTransmissionTimes[station.callsign]) / 1000;
+                    if (secondsSinceTransmission >= 30) {
+                        timeDisplay = `Last heard ${station.time}`;
+                    }
+                }
+                
+                // Update transmission time tracking
+                if (station.active) {
+                    lastTransmissionTimes[station.callsign] = now;
+                }
                 
                 content.innerHTML = `
                     <div class="callsign-display">${station.callsign}</div>
                     <div class="tg-number">${station.talkgroup}</div>
                     <div class="tg-name">${station.tgName}</div>
-                    <div class="time-display">${station.time}</div>
+                    <div class="time-display">${timeDisplay}</div>
                 `;
                 
                 // Add flashing effect if transmitting
