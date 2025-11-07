@@ -588,6 +588,9 @@
                         <span id="themeIcon">🌙</span>
                         <span id="themeText">Night</span>
                     </div>
+                    <a href="watch.php" class="edit-button">
+                        👁️ Watch
+                    </a>
                     <a href="settings.php" class="edit-button">
                         ⚙️ Edit
                     </a>
