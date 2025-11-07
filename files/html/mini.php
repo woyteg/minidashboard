@@ -601,7 +601,7 @@
 
     <!-- Fixed Footer Copyright -->
     <div class="opensource-credit">
-        Copyright © 2025 W9GIL - Open Source
+        Copyright © 2025 W9GIL - Open Source Project
     </div>
 
     <!-- Last Calls Modal -->
