@@ -4,7 +4,9 @@ Have you ever thought about putting that old phone lying in a drawer to good use
 This final version is the result of inspiration and your feedback, which is why I consider it our collective creation.
 The dashboard has been optimized to work on as many different phones as possible. Of course, it won't please everyone, but since it's an open-source project, I encourage everyone to customize it to their own needs.
 
-[![Dashboard Demo](https://img.youtube.com/vi/9fDdVvUkkM4/maxresdefault.jpg)](https://youtube.com/shorts/9fDdVvUkkM4)
+<a href="https://youtube.com/shorts/9fDdVvUkkM4" target="_blank">
+  <img src="https://img.youtube.com/vi/9fDdVvUkkM4/maxresdefault.jpg" alt="Dashboard Demo" width="600" />
+</a>
 
 ## Quick Installation
 Run this single command on your Raspberry Pi or Orange Pi to install/update all files:
