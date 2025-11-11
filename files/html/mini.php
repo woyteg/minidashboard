@@ -664,7 +664,7 @@
             { id: 31093123, name: 'K9RCZ' },
             { id: 31093124, name: '441' },
             { id: 260993, name: 'SR9NKU' },
-            { id: 260499, name: 'SR9ROBI' }
+            { id: 260499, name: 'SR4ROBI' }
         ];
 
         let talkgroups = [];
