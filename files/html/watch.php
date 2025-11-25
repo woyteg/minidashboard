@@ -368,6 +368,8 @@
     <script>
         let lastHeardStations = [];
         let lastTransmissionTimes = {};
+        let transmissionStartTimes = {};
+        let pttTimerInterval = null;
 
         // Theme Toggle
         function toggleTheme() {
@@ -397,6 +399,22 @@
         themeIcon.textContent = savedTheme === 'day' ? '🌙' : '☀️';
         themeText.textContent = savedTheme === 'day' ? 'Night' : 'Day';
 
+        // Format PTT timer duration
+        function formatPTTTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Update PTT timer display
+        function updatePTTTimer(callsign) {
+            if (transmissionStartTimes[callsign]) {
+                const elapsed = (Date.now() - transmissionStartTimes[callsign]) / 1000;
+                return `PTT Timer: ${formatPTTTime(elapsed)}`;
+            }
+            return '';
+        }
+
         // Update last heard display
         function updateLastHeard() {
             const content = document.getElementById('lastHeardContent');
@@ -406,19 +424,55 @@
                 const station = lastHeardStations[0];
                 const now = Date.now();
                 
-                let timeDisplay = station.time;
+                let timeDisplay = '';
                 
-                // Check if we should show "Last heard" prefix
-                if (!station.active && lastTransmissionTimes[station.callsign]) {
-                    const secondsSinceTransmission = (now - lastTransmissionTimes[station.callsign]) / 1000;
-                    if (secondsSinceTransmission >= 30) {
-                        timeDisplay = `Last heard ${station.time}`;
-                    }
-                }
-                
-                // Update transmission time tracking
+                // Handle active transmission
                 if (station.active) {
+                    // Start PTT timer if not already started
+                    if (!transmissionStartTimes[station.callsign]) {
+                        transmissionStartTimes[station.callsign] = now;
+                    }
                     lastTransmissionTimes[station.callsign] = now;
+                    
+                    // Show PTT Timer while transmitting
+                    timeDisplay = updatePTTTimer(station.callsign);
+                    
+                    // Start timer update interval if not running
+                    if (!pttTimerInterval) {
+                        pttTimerInterval = setInterval(() => {
+                            if (lastHeardStations[0] && lastHeardStations[0].active) {
+                                const updatedTime = updatePTTTimer(lastHeardStations[0].callsign);
+                                const timeDisplayElement = document.querySelector('.time-display');
+                                if (timeDisplayElement) {
+                                    timeDisplayElement.textContent = updatedTime;
+                                }
+                            }
+                        }, 100); // Update every 100ms for smooth timer
+                    }
+                } else {
+                    // Transmission stopped
+                    // Clear PTT timer interval
+                    if (pttTimerInterval) {
+                        clearInterval(pttTimerInterval);
+                        pttTimerInterval = null;
+                    }
+                    
+                    // Clear start time for this callsign
+                    if (transmissionStartTimes[station.callsign]) {
+                        delete transmissionStartTimes[station.callsign];
+                    }
+                    
+                    // Check if we should show "Last heard" prefix
+                    if (lastTransmissionTimes[station.callsign]) {
+                        const secondsSinceTransmission = (now - lastTransmissionTimes[station.callsign]) / 1000;
+                        if (secondsSinceTransmission >= 60) {
+                            timeDisplay = `Last heard: ${station.time}`;
+                        } else {
+                            timeDisplay = station.time;
+                        }
+                    } else {
+                        timeDisplay = station.time;
+                    }
                 }
                 
                 content.innerHTML = `
@@ -437,6 +491,12 @@
             } else {
                 content.innerHTML = '<div class="no-data">Waiting for transmission...</div>';
                 card.classList.remove('transmitting');
+                
+                // Clear PTT timer interval if no stations
+                if (pttTimerInterval) {
+                    clearInterval(pttTimerInterval);
+                    pttTimerInterval = null;
+                }
             }
         }
 
