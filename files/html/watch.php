@@ -369,6 +369,7 @@
         let lastHeardStations = [];
         let lastTransmissionTimes = {};
         let transmissionStartTimes = {};
+        let lastTransmissionDurations = {};
         let pttTimerInterval = null;
 
         // Theme Toggle
@@ -457,18 +458,32 @@
                         pttTimerInterval = null;
                     }
                     
-                    // Clear start time for this callsign
+                    // Save the duration if we have a start time
                     if (transmissionStartTimes[station.callsign]) {
+                        const duration = (now - transmissionStartTimes[station.callsign]) / 1000;
+                        lastTransmissionDurations[station.callsign] = duration;
                         delete transmissionStartTimes[station.callsign];
                     }
                     
                     // Check if we should show "Last heard" prefix
                     if (lastTransmissionTimes[station.callsign]) {
                         const secondsSinceTransmission = (now - lastTransmissionTimes[station.callsign]) / 1000;
-                        if (secondsSinceTransmission >= 60) {
-                            timeDisplay = `Last heard: ${station.time}`;
+                        if (secondsSinceTransmission >= 30) {
+                            // Show "Last heard" with timestamp and duration
+                            const duration = lastTransmissionDurations[station.callsign];
+                            if (duration) {
+                                timeDisplay = `Last heard: ${station.time} (${formatPTTTime(duration)})`;
+                            } else {
+                                timeDisplay = `Last heard: ${station.time}`;
+                            }
                         } else {
-                            timeDisplay = station.time;
+                            // Just show timestamp and duration without "Last heard" prefix
+                            const duration = lastTransmissionDurations[station.callsign];
+                            if (duration) {
+                                timeDisplay = `${station.time} (${formatPTTTime(duration)})`;
+                            } else {
+                                timeDisplay = station.time;
+                            }
                         }
                     } else {
                         timeDisplay = station.time;
